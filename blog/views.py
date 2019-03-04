@@ -3,10 +3,16 @@ from django.shortcuts import render
 from datetime import datetime
 from blog.models import Article
 
-def home_page(request):
+def posts_page(request):
     context = {'articles': Article.objects.filter(draft=False).order_by('-published_date')}
-    response = render(request, 'index.html', context)
-    return HttpResponse(response)
+    html_string = render(request, 'posts.html', context)
+    return HttpResponse(html_string)
+
+def post_show(request, id):
+    post = Article.objects.get(pk=id)
+    context = {'post': post}
+    html_string = render(request, 'post.html', context)
+    return HttpResponse(html_string)
 
 def root(request):
-    return HttpResponseRedirect('home')
+    return HttpResponseRedirect('posts')
