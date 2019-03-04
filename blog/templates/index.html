@@ -2,45 +2,15 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Web Apps - Recap</title>
+    <title>Anton's Blog</title>
   </head>
   <body>
-    <h1>Intro to Web Applications - Recap</h1>
-
-    <h2>Current Date: {{ current_date }}</h2>
-
-    <div>
-      <h3>What is a client?</h3>
-      <p>A personal computer or a workstation that talks to
-        the server. The communication consists of sending requests to
-        and receiving responses from the server.</p>
-    </div>
-
-    <div>
-      <h3>What is a server?</h3>
-      <p>A special computer that hosts website files. Servers are like digital
-      file cabinets. Unlike clients, servers have only one purpose: to host massive
-      amounts of files and to serve those files to you.</p>
-    </div>
-
-    <div>
-      <h3>What is an HTTP request?</h3>
-      <p>A request sent to the server by the client, usually to
-        retrieve, create, update, or delete data.</p>
-    </div>
-
-    <div>
-      <h3>What is an HTTP response?</h3>
-      <p>Information in the form of a text record, comprised of a status code, a header, and a body
-        that a web server sends back to the client in response to receiving an HTTP request.</p>
-    </div>
-
-    <div>
-      <h3>What is Django and why do we use it?</h3>
-      <p>Django is an open-source web application framework, written in Python. A web framework, like Django,
-        helps you build web apps. We use frameworks like Django to save ourselves from having to reinvent the wheel and to
-        avoid some of the overhead when building websites.</p>
-    </div>
-
+    <h1>Welcome! I'm glad you're here.</h1>
+    {% for article in articles %}
+      <h2>{{ article.title }}</h2>
+      <h3>Date Published: {{ article.published_date }}</h3>
+      <h3>Author: {{ article.author }}</h3>
+      <p>{{ article.body|linebreaksbr }}</p>
+    {% endfor %}
   </body>
 </html>
