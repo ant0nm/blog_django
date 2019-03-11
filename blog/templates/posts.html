@@ -1,7 +1,6 @@
 
 {% extends 'base.html' %}
 {% block content %}
-<h1 class="posts-heading">Anton's Blog</h1>
 <ul class="post-list">
   {% for article in articles %}
   <a class="post-link" href="{% url 'post_details' id=article.pk %}">

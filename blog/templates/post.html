@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2 class="post-details-heading">{{post.title}}</h2>
 <div class="post-details-body">
+  <h3>Topic: {{post.topic}}</h3>
   <p>{{post.body|linebreaksbr}}</p>
   <h4>Date Published: {{post.published_date}}</h4>
   <h4>Author: {{post.author}}</h4>
 </div>
 <div class="post-details-comments">
-  <h4>Comments</h4>
+  <h4 class="comment-heading">Comments</h4>
   <ul class="comment-list">
     {% for comment in post.sort_comment_set %}
     <li class="comment-item">
@@ -21,16 +21,17 @@
 
     <fieldset class="comment-fieldset">
       <legend>Add a comment</legend>
-      <input type="hidden" name="post" value="{{post.pk}}">
-      <label for="comment-name">
+      <!-- <label for="comment-name">
         Name:
         <input type="text" id="comment-name" name="comment-name" placeholder="John">
       </label>
       <label for="comment-message">
         Comment:
         <input type="text" id="comment-message" name="comment-message" placeholder="This is great!">
-      </label>
-      <input class="submit-button" type="submit" name="comment-submit" value="Submit">
+      </label> -->
+      <input type="hidden" name="post_id" value="{{post.pk}}">
+      {{comment_form.as_p}}
+      <input type="submit" name="comment-submit" value="Submit">
     </fieldset>
   </form>
 </div>

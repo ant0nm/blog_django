@@ -4,13 +4,14 @@
 
 body {
   font-family: 'Roboto', sans-serif;
-  background-color: #F9F8FD;
+  background-color: #F9FFFD;
 }
 
-.posts-heading {
+.site-header > h1 {
   text-align: center;
-  background-color: #333;
-  color: white;
+  background-color: #354F52;
+  font-family: 'Quicksand', sans-serif;
+  color: #F9FFFD;
   margin: 0;
   padding: 10px 0;
 }
@@ -19,27 +20,59 @@ body {
   list-style-type: none;
   padding:0;
   margin: 30px 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 20px;
 }
 
 .post-link {
   text-decoration: none;
-  color: #393939;
+  text-align: center;
+  font-family: 'Quicksand', sans-serif;
+  color: #2F3E46;
 }
 
 .post-link:hover {
-  color: #7DCE94;
+  color: #7EC98F;
 }
 
-.post-details-heading {
+.post-item {
+  background-color: lightgrey;
+  border-radius: 15px;
+  padding: 5px;
+}
+
+.site-nav {
   text-align: center;
-  background-color: #7DCE94;
-  color: #333;
-  margin: 0;
-  padding: 5px 0;
+}
+
+.site-nav > ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 1em 0;
+}
+
+.site-nav-item {
+  display: inline-block;
+  margin-right: 30px;
+}
+
+.site-nav-item:last-child {
+  margin-right: 0;
+}
+
+.site-nav-item > a {
+  text-decoration: none;
+  color: #7EC98F;
+}
+
+.site-nav-item > a:hover {
+  color: #2F3E46;
 }
 
 .post-details-body {
   margin: 30px 30px;
+  color: #2F3E46;
 }
 
 .post-details-body > h4 {
@@ -48,6 +81,7 @@ body {
 
 .post-details-comments {
   margin: 30px 30px;
+  color: #2F3E46;
 }
 
 .comment-list {
@@ -56,29 +90,29 @@ body {
 }
 
 .comment-item {
-  background-color: darkgrey;
-  color: #333;
+  background-color: #52796F;
+  color: #F9FFFD;
   margin: 10px 0;
   padding: 5px 20px;
   border-radius: 10px;
 }
 
-.comment-form {
-  text-align: center;
-}
-
 .comment-fieldset {
-  display: inline-block;
   text-align: center;
-  border-radius: 10px;
 }
 
-.comment-fieldset label {
-  display: block;
-  text-align: right;
-  margin: 10px 0;
+.article-form {
+  margin: 30px;
 }
 
-.submit-button {
-  margin: 10px 0;
+@media (max-width: 768px) {
+  .post-list {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .post-list {
+    grid-template-columns: 1fr;
+  }
 }
