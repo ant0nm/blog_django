@@ -7,7 +7,7 @@
   <h4>Author: {{post.user.username}}</h4>
   {% if post.user == request.user %}
     <p>
-      <a href="{% url 'edit_post' id=post.id %}">Edit Post</a>
+      <a class="edit-post" href="{% url 'edit_post' id=post.id %}">Edit Post</a>
     </p>
   {% endif %}
 </div>

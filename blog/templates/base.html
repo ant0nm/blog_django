@@ -17,7 +17,8 @@
           <li class="site-nav-item"><a href="{% url 'home' %}">Home</a></li>
           {% if request.user.is_authenticated %}
             <li class="site-nav-item">Logged in as {{request.user.username}}</li>
-            <li class="site-nav-item"><a href="{% url 'new_post' %}">New Post</a></li>
+            <li class="site-nav-item"><a href="{% url 'user_posts' %}">My posts</a></li>
+            <li class="site-nav-item"><a href="{% url 'new_post' %}">Add a post</a></li>
             <li class="site-nav-item"><a href="{% url 'logout' %}">Log out</a></li>
           {% else %}
             <li class="site-nav-item"><a href="{% url 'login' %}">Log in</a></li>

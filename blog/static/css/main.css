@@ -11,7 +11,7 @@ body {
   text-align: center;
   background-color: #354F52;
   font-family: 'Quicksand', sans-serif;
-  color: #F9FFFD;
+  color: white;
   margin: 0;
   padding: 10px 0;
 }
@@ -26,20 +26,20 @@ body {
 }
 
 .post-link {
+  box-shadow: 5px 10px #888888;
+  background-color: lightgrey;
+  border-radius: 15px;
+  padding: 5px;
   text-decoration: none;
   text-align: center;
+  vertical-align: middle;
   font-family: 'Quicksand', sans-serif;
   color: #2F3E46;
 }
 
 .post-link:hover {
-  color: #7EC98F;
-}
-
-.post-item {
-  background-color: lightgrey;
-  border-radius: 15px;
-  padding: 5px;
+  color: #16C172;
+  background-color: #D5FFD9;
 }
 
 .site-nav {
@@ -48,14 +48,15 @@ body {
 
 .site-nav > ul {
   list-style-type: none;
-  padding: 0;
-  margin: 1em 0;
+  margin: 0;
+  padding: 1em 0;
+  background-color: #91AEC1;
+;
 }
 
 .site-nav-item {
   display: inline-block;
   margin-right: 30px;
-  color: darkgrey;
 }
 
 .site-nav-item:last-child {
@@ -64,11 +65,11 @@ body {
 
 .site-nav-item > a {
   text-decoration: none;
-  color: #7EC98F;
+  color: #DDFDFE;
 }
 
 .site-nav-item > a:hover {
-  color: #2F3E46;
+  color: #508CA4;
 }
 
 .post-details-body {
@@ -78,6 +79,15 @@ body {
 
 .post-details-body > h4 {
   margin: 10px 0;
+}
+
+a.edit-post {
+  text-decoration: none;
+  color: #16C172;
+}
+
+a.edit-post:hover {
+  color: 	#606060;
 }
 
 .post-details-comments {
@@ -102,23 +112,34 @@ body {
   text-align: center;
 }
 
-.article-form {
+form.article-form {
   margin: 30px;
 }
 
-
 form.signup_form {
+  margin: 30px;
+}
 
+form.login_form {
+  margin: 30px;
 }
 
 @media (max-width: 768px) {
   .post-list {
     grid-template-columns: 1fr 1fr;
   }
+  .site-nav-item {
+    margin-right: 20px;
+  }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 500px) {
   .post-list {
     grid-template-columns: 1fr;
+  }
+  .site-nav-item {
+    display: block;
+    margin-right: 0;
+    padding: 5px;
   }
 }

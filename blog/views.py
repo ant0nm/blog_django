@@ -24,7 +24,7 @@ def login_view(request):
                 form.add_error('username', 'Login failed')
     else:
         form = LoginForm()
-    context = {'form': form}
+    context = {'title': 'Log in', 'form': form}
     html_response = render(request, 'login.html', context)
     return HttpResponse(html_response)
 
@@ -46,7 +46,7 @@ def signup(request):
             return HttpResponseRedirect('/')
     else:
         form = UserCreationForm()
-    html_response = render(request, 'signup.html', {'form': form})
+    html_response = render(request, 'signup.html', {'title': 'Sign up', 'form': form})
     return HttpResponse(html_response)
 
 def posts_page(request):
@@ -91,6 +91,12 @@ def edit_post(request, id):
     context = {'title': 'Edit Post', 'form': form, 'post': post}
     html_response = render(request, "edit_post.html", context)
     return HttpResponse(html_response)
+
+def user_posts(request):
+    user_articles = request.user.articles
+    context = {'title': "The Blog", 'articles': user_articles.filter(draft=False).order_by('-published_date')}
+    html_string = render(request, 'posts.html', context)
+    return HttpResponse(html_string)
 
 def create_comment(request):
     article = Article.objects.get(pk=request.POST['post_id'])
