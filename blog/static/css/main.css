@@ -55,6 +55,7 @@ body {
 .site-nav-item {
   display: inline-block;
   margin-right: 30px;
+  color: darkgrey;
 }
 
 .site-nav-item:last-child {
@@ -103,6 +104,11 @@ body {
 
 .article-form {
   margin: 30px;
+}
+
+
+form.signup_form {
+
 }
 
 @media (max-width: 768px) {

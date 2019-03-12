@@ -1,10 +1,51 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from datetime import datetime
-from blog.models import Article, Comment, Topic, CommentForm, ArticleForm
+from blog.models import Article, Comment, Topic
+from blog.forms import CommentForm, ArticleForm, LoginForm
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
+
+def login_view(request):
+    if request.method == "POST":
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            pw = form.cleaned_data['password']
+            user = authenticate(username=username, password=pw)
+            if user is not None:
+                login(request, user)
+                return HttpResponseRedirect('/')
+            else:
+                form.add_error('username', 'Login failed')
+    else:
+        form = LoginForm()
+    context = {'form': form}
+    html_response = render(request, 'login.html', context)
+    return HttpResponse(html_response)
+
+def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect('/')
+
+def signup(request):
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            return HttpResponseRedirect('/')
+    else:
+        form = UserCreationForm()
+    html_response = render(request, 'signup.html', {'form': form})
+    return HttpResponse(html_response)
 
 def posts_page(request):
-    context = {'title': "Anton's Blog", 'articles': Article.objects.filter(draft=False).order_by('-published_date')}
+    context = {'title': "The Blog", 'articles': Article.objects.filter(draft=False).order_by('-published_date')}
     html_string = render(request, 'posts.html', context)
     return HttpResponse(html_string)
 
@@ -14,15 +55,19 @@ def post_show(request, id):
     html_string = render(request, 'post.html', context)
     return HttpResponse(html_string)
 
+@login_required
 def new_post(request):
     context = {'title':'Create a new post', 'article_form': ArticleForm()}
     html_string = render(request, 'new_post.html', context)
     return HttpResponse(html_string)
 
+@login_required
 def create_post(request):
     form = ArticleForm(request.POST)
     if form.is_valid():
-        new_article = form.save()
+        new_article = form.instance
+        new_article.user = request.user
+        new_article.save()
         return HttpResponseRedirect("/posts/")
     else:
         html_string = render(request, 'new_post.html', {'title': 'Create a new post', 'article_form': ArticleForm(request.POST)})

@@ -6,6 +6,7 @@
   <a class="post-link" href="{% url 'post_details' id=article.pk %}">
     <li class="post-item">
       <h2>{{article.title}}</h2>
+      <p>By {{article.user.username}}</p>
     </li>
   </a>
   {% endfor %}

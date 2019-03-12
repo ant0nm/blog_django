@@ -4,7 +4,7 @@
   <h3>Topic: {{post.topic}}</h3>
   <p>{{post.body|linebreaksbr}}</p>
   <h4>Date Published: {{post.published_date}}</h4>
-  <h4>Author: {{post.author}}</h4>
+  <h4>Author: {{post.user.username}}</h4>
 </div>
 <div class="post-details-comments">
   <h4 class="comment-heading">Comments</h4>
@@ -21,14 +21,6 @@
 
     <fieldset class="comment-fieldset">
       <legend>Add a comment</legend>
-      <!-- <label for="comment-name">
-        Name:
-        <input type="text" id="comment-name" name="comment-name" placeholder="John">
-      </label>
-      <label for="comment-message">
-        Comment:
-        <input type="text" id="comment-message" name="comment-message" placeholder="This is great!">
-      </label> -->
       <input type="hidden" name="post_id" value="{{post.pk}}">
       {{comment_form.as_p}}
       <input type="submit" name="comment-submit" value="Submit">
