@@ -1,13 +1,16 @@
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from datetime import datetime
 from blog.models import Article, Comment, Topic
 from blog.forms import CommentForm, ArticleForm, LoginForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse
 
 def login_view(request):
+    if request.user.is_authenticated:
+        return HttpResponseRedirect('/')
     if request.method == "POST":
         form = LoginForm(request.POST)
         if form.is_valid():
@@ -30,6 +33,8 @@ def logout_view(request):
     return HttpResponseRedirect('/')
 
 def signup(request):
+    if request.user.is_authenticated:
+        return HttpResponseRedirect('/')
     if request.method == "POST":
         form = UserCreationForm(request.POST)
         if form.is_valid():
@@ -72,6 +77,20 @@ def create_post(request):
     else:
         html_string = render(request, 'new_post.html', {'title': 'Create a new post', 'article_form': ArticleForm(request.POST)})
         return HttpResponse(html_string)
+
+@login_required
+def edit_post(request, id):
+    post = get_object_or_404(Article, pk=id, user=request.user.pk)
+    if request.method == "POST":
+        form = ArticleForm(request.POST, instance=post)
+        if form.is_valid():
+            updated_post = form.save()
+            return HttpResponseRedirect(reverse('post_details', args=[post.id]))
+    else:
+        form = ArticleForm(instance=post)
+    context = {'title': 'Edit Post', 'form': form, 'post': post}
+    html_response = render(request, "edit_post.html", context)
+    return HttpResponse(html_response)
 
 def create_comment(request):
     article = Article.objects.get(pk=request.POST['post_id'])
